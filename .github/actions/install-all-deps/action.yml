@@ -44,7 +44,6 @@ runs:
         client/python/requirements.txt
         requirements.txt
         requirements-mcp.txt
-        test/requirements.txt
   - name: Set uv exclude-newer
     shell: bash
     run: |
@@ -69,9 +68,7 @@ runs:
         client/python/venv
       restore-keys: |
         gradio-lib-main-${{inputs.python_version}}-${{ steps.setup-python.outputs.python-version }}-${{inputs.os}}-latest-pip-
-      key: gradio-lib-main-${{inputs.python_version}}-${{ steps.setup-python.outputs.python-version }}-${{inputs.os}}-latest-pip-${{
-        hashFiles('client/python/requirements.txt') }}-${{ hashFiles('requirements.txt') }}-${{ hashFiles('test/requirements.txt')
-        }}-${{ hashFiles('client/python/test/requirements.txt') }}${{ inputs.test == 'true' && '-test' || ''}}
+      key: gradio-lib-main-${{ inputs.python_version }}-${{ steps.setup-python.outputs.python-version }}-${{ inputs.os }}-latest-pip-${{ hashFiles('client/python/requirements.txt', 'requirements.txt', 'requirements-mcp.txt') }}
   - name: Create env
     shell: bash
     run: |
